@@ -1,13 +1,8 @@
 'use strict';
 
 var gulp = require('gulp');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var htmlmin = require('gulp-htmlmin');
+var $ = require('gulp-load-plugins')();
 var express = require('express');
-var livereload = require('gulp-livereload');
-var please = require('gulp-pleeease');
 var lib = require('bower-files')({
   overrides: {
     bootstrap: {
@@ -41,10 +36,11 @@ gulp.task('watch', [
 
 gulp.task('scripts', function () {
   return gulp.src(lib.ext('js').files.concat('src/scripts/**/*.js'))
-    .pipe(sourcemaps.init())
-      .pipe(concat('app.min.js'))
-      .pipe(uglify())
-    .pipe(sourcemaps.write('../maps'))
+    .pipe($.plumber())
+    .pipe($.sourcemaps.init())
+      .pipe($.concat('app.min.js'))
+      .pipe($.uglify())
+    .pipe($.sourcemaps.write('../maps'))
     .pipe(gulp.dest('build/js'));
 });
 gulp.task('scripts.watch', ['scripts'], function () {
@@ -54,10 +50,11 @@ gulp.task('scripts.watch', ['scripts'], function () {
 
 gulp.task('styles', function () {
   return gulp.src(lib.ext('css').files.concat('src/styles/**/*.css'))
-    .pipe(sourcemaps.init())
-      .pipe(concat('app.min.css'))
-      .pipe(please())
-    .pipe(sourcemaps.write('../maps'))
+    .pipe($.plumber())
+    .pipe($.sourcemaps.init())
+      .pipe($.concat('app.min.css'))
+      .pipe($.pleeease())
+    .pipe($.sourcemaps.write('../maps'))
     .pipe(gulp.dest('build/css'));
 });
 gulp.task('styles.watch', ['styles'], function () {
@@ -67,6 +64,7 @@ gulp.task('styles.watch', ['styles'], function () {
 
 gulp.task('static', function () {
   return gulp.src('src/static/**/*')
+    .pipe($.plumber())
     .pipe(gulp.dest('build'));
 });
 gulp.task('static.watch', ['static'], function () {
@@ -75,13 +73,15 @@ gulp.task('static.watch', ['static'], function () {
 
 gulp.task('fonts', function () {
   return gulp.src(lib.ext(['eot', 'svg', 'ttf', 'woff']).files)
+    .pipe($.plumber())
     .pipe(gulp.dest('build/fonts'));
 });
 
 
 gulp.task('templates', function () {
   return gulp.src('src/templates/**/*.html')
-    .pipe(htmlmin({
+    .pipe($.plumber())
+    .pipe($.htmlmin({
       collapseWhitespace: true
     }))
     .pipe(gulp.dest('build'));
@@ -99,8 +99,8 @@ gulp.task('server', function () {
 
 
 gulp.task('livereload', function () {
-  livereload.listen();
+  $.livereload.listen();
   gulp.watch('build/**/*', function (event) {
-    livereload.changed(event);
+    $.livereload.changed(event);
   });
 });

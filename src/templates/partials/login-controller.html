@@ -20,6 +20,9 @@
           ng-model="login.inputs.password"
         />
       </div>
+      <div class="alert alert-danger" ng-show="login.errorMessage">
+        <p>{{ login.errorMessage }}</p>
+      </div>
       <div class="form-group">
         <button type="submit" ng-click="login.inputType = 'signin'" class="btn btn-primary">Login</button>
         <button type="submit" ng-click="login.inputType = 'signup'" class="btn btn-info">Signup</button>

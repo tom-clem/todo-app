@@ -8,27 +8,31 @@ angular
   'users',
   function (auth, users) {
 
-    this.signin = function(email, password) {
-      auth.login(email, password)
+    this.inputType = 'signin';
+
+    this.submit = function(email, password) {
+      this[this.inputType](email, password)
         .then(function(res) {
-          console.log(res.data);
+          // TODO redirect to the todos page
+          console.log('success');
         })
         .catch(function(res) {
-          console.log('error', res.data);
+          console.log(res.status, res.data);
         });
     };
 
+    this.signin = function(email, password) {
+      return auth.login(email, password);
+    };
+
     this.signup = function(email, password) {
-      users
+      return users
         .create({
           email: email,
           password: password
         })
         .then(function(res) {
-          console.log(res.data);
-        })
-        .catch(function(res) {
-          console.log('error', res.data);
+          return auth.login(email, password);
         });
     };
 

@@ -2,6 +2,7 @@ angular
 .module('LoginController', [
   'dgmTodo.auth',
   'dgmTodo.users',
+  'toggleDirective',
 ])
 .controller('LoginController', [
   'auth',

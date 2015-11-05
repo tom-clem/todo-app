@@ -17,11 +17,14 @@
           <input
             class="form-control"
             name="password"
-            type="password"
+            type="{{ login.showPassword ? 'text' : 'password' }}"
             ng-model="login.inputs.password"
           />
           <span class="input-group-btn">
-            <toggle value="login.showPassword" active="eye-open" inactive="eye-close"></toggle>
+            <toggle
+              value="login.showPassword"
+              active="eye-open"
+              inactive="eye-close"></toggle>
           </span>
         </div>
       </div>

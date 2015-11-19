@@ -9,8 +9,8 @@ angular
     },
     template: [
       '<button type="button" ng-click="value = !value" class="btn btn-default" ng-class="{active: value}">',
-      '  <span ng-if="value" class="glyphicon glyphicon-{{ active }}"></span>',
-      '  <span ng-if="!value" class="glyphicon glyphicon-{{ inactive }}"></span>',
+        '<span ng-if="value" class="glyphicon glyphicon-{{ active }}"></span>',
+        '<span ng-if="!value" class="glyphicon glyphicon-{{ inactive }}"></span>',
       '</button>',
     ].join(''),
     link: function(scope, elem, attrs) {

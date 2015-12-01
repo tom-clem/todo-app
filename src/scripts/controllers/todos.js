@@ -38,9 +38,10 @@ angular
     resetCreateForm();
 
     self.createTodo = function (data) {
+
       var todo = {
         name: data.name,
-        description: data.description,
+        description: data.description || 'No Description',
         tags: (data.tags || '')
           .split(',')
           .map(function (tag) {
@@ -57,8 +58,8 @@ angular
           resetCreateForm();
           console.log('success');
         })
-        .catch(function(err) {
-          console.log(err);
+        .catch(function(res) {
+          console.log(res.data);
           // TODO error handle
         });
     };

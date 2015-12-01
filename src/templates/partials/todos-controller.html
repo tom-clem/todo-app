@@ -1,8 +1,17 @@
 <div>
   <h1>Todos</h1>
 
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="todoItem in todo.todos">
+      {{ todoItem.name }}
+    </li>
+  </ul>
+
   <form ng-submit="todo.createTodo(todo.create)">
     <h3>Add Todo</h3>
+    <div class="alert alert-danger" ng-show="todo.errorMessage">
+      <p>{{ todo.errorMessage }}</p>
+    </div>
     <!-- TODO name -->
     <div class="form-group">
       <label for="name">Name</label>

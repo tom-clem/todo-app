@@ -1,3 +1,38 @@
 <div>
   <h1>Todos</h1>
+
+  <form ng-submit="todo.createTodo(todo.create)">
+    <h3>Add Todo</h3>
+    <!-- TODO name -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        id="name"
+        name="name"
+        class="form-control"
+        type="text"
+        ng-model="todo.create.name"/>
+    </div>
+    <!-- TODO description -->
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+        ng-model="todo.create.description"></textarea>
+    </div>
+    <!-- TODO tags -->
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <input
+        id="tags"
+        name="tags"
+        class="form-control"
+        type="text"
+        ng-model="todo.create.tags"/>
+      <p>Separate tags by comma</p>
+    </div>
+    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Add Todo" />
+  </form>
 </div>

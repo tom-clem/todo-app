@@ -28,5 +28,56 @@ angular
         });
     }
 
+    function resetCreateForm() {
+      self.create = {
+        name: '',
+        description: '',
+        tags: '',
+      };
+    }
+    resetCreateForm();
+
+    self.createTodo = function (data) {
+      var todo = {
+        name: data.name,
+        description: data.description,
+        tags: (data.tags || '')
+          .split(',')
+          .map(function (tag) {
+            return tag.trim();
+          })
+          .filter(function(tag) {
+            return tag;
+          })
+      };
+
+      todos.create(self.currentUser.id, todo)
+        .then(function() {
+          readTodos();
+          resetCreateForm();
+          console.log('success');
+        })
+        .catch(function(err) {
+          console.log(err);
+          // TODO error handle
+        });
+    };
+
   },
 ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

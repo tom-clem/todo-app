@@ -47,21 +47,43 @@ angular
           .map(function (tag) {
             return tag.trim();
           })
-          .filter(function(tag) {
+          .filter(function (tag) {
             return tag;
           })
       };
 
       todos.create(self.currentUser.id, todo)
-        .then(function() {
+        .then(function () {
           readTodos();
           resetCreateForm();
           console.log('success');
         })
-        .catch(function(res) {
+        .catch(function (res) {
           console.log(res.data);
           // TODO error handle
         });
+    };
+
+    self.updateTodo = function(todo) {
+      var updatedTodo = {
+        completed: todo.completed,
+        name: todo.name,
+        archived: todo.archived,
+      };
+
+      todos.update(self.currentUser.id, todo.id, updatedTodo)
+        .then(function () {
+          readTodos();
+
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    self.archiveTodo = function(todo) {
+      todo.archived = true;
+      self.updateTodo(todo);
     };
 
   },
